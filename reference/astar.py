@@ -1,7 +1,6 @@
 import sys
 import math
 
-# Simple tile map with A* pathfinding
 class AStarMap:
 	def __init__(self, width = 10, height = 10):
 		self.width = width
