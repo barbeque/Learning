@@ -10,6 +10,6 @@ height = 480
 rays = raytrace.getRaysForScreen(width, height, c)
 
 # make sure we got the right number of rays
-assert(rays.length == height)
+assert(len(rays) == height - 1)
 for y in range(height - 1):
-	assert(rays[y].length == width)
+	assert(len(rays[y]) == (width - 1))
