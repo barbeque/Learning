@@ -7,6 +7,4 @@ c = raytrace.Camera()
 width = 640
 height = 480
 
-for x in range(width - 1):
-	for y in range(height - 1):
-		r = raytrace.makeRayForPixel(x, y, width, height, c)
+rays = raytrace.getRaysForScreen(width, height, c)

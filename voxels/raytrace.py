@@ -39,8 +39,8 @@ class Camera:
 		self.position = Vector(0.0, 0.0, 0.0)
 		self.lookAt = Vector(1.0, 1.0, 1.0)
 		self.up = Vector(0.0, 1.0, 0.0)
-
-def makeRayForPixel(x, y, width, height, camera):
+		
+def getRaysForScreen(width, height, camera):
 	# set up the coordinate system (should cache this!)
 	n = (camera.position - camera.lookAt).getNormalized()
 	u = camera.up.cross(n).getNormalized()
@@ -54,9 +54,19 @@ def makeRayForPixel(x, y, width, height, camera):
 	pixelWidth = 2.0 * math.tan(hfov * 0.5) / width
 	pixelHeight = 2.0 * math.tan(vfov * 0.5) / height
 	
-	# use this information
-	rayPoint = viewPortCentre + (u * (x - width / 2.0) * pixelWidth) + (v * (y - height / 2.0) * pixelHeight)
-	rayDirection = (rayPoint - camera.position).getNormalized()
+	# initialize output
+	output = []
 	
-	ray = Ray(rayPoint, rayDirection)
-	return ray
+	for y in range(height - 1):
+		output.append([])
+		for x in range(width - 1):
+			# use this information
+			rayPoint = viewPortCentre + (u * (x - width / 2.0) * pixelWidth) + (v * (y - height / 2.0) * pixelHeight)
+			rayDirection = (rayPoint - camera.position).getNormalized()
+
+			ray = Ray(rayPoint, rayDirection)
+			
+			# store it in the buffer
+			output[y].append(ray)
+	
+	return output
