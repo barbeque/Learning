@@ -37,7 +37,7 @@ class Ray:
 class Camera:
 	def __init__(self):
 		self.position = Vector(0.0, 0.0, 0.0)
-		self.lookAt = Vector(0.0, 0.0, 100.0)
+		self.lookAt = Vector(1.0, 1.0, 1.0)
 		self.up = Vector(0.0, 1.0, 0.0)
 
 def makeRayForPixel(x, y, width, height, camera):
@@ -55,7 +55,7 @@ def makeRayForPixel(x, y, width, height, camera):
 	pixelHeight = 2.0 * math.tan(vfov * 0.5) / height
 	
 	# use this information
-	rayPoint = (u * (x - width / 2.0) * pixelWidth) + (v * (y - height / 2.0) * pixelHeight)
+	rayPoint = viewPortCentre + (u * (x - width / 2.0) * pixelWidth) + (v * (y - height / 2.0) * pixelHeight)
 	rayDirection = (rayPoint - camera.position).getNormalized()
 	
 	ray = Ray(rayPoint, rayDirection)
