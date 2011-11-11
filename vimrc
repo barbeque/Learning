@@ -33,3 +33,17 @@ set nu!
 " for syntax highlighting purposes.
 au BufNewFile,BufRead *.tt setfiletype cs
 au BufNewFile,BufRead *.targets setfiletype xml
+
+set nocompatible
+set showmatch
+set matchtime=3
+set smartindent
+set showcmd
+set showmode
+set tabstop=4
+set shiftwidth=4
+filetype plugin indent on
+" don't add a space when Joining two lines
+set nojoinspaces
+" always show cursor position
+set ruler
