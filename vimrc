@@ -11,7 +11,7 @@ set nowritebackup
 set noswapfile
 
 " Set the colour scheme
-color slate
+color desert
 
 " Set the GUI font (for GVIM)
 set guifont=Consolas:h11:cANSI
