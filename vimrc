@@ -1,11 +1,14 @@
 " Make vim not put the *.swp and backup files in the same directory
 " as the file you're editing
-set directory=c:\\temp
-set backupdir=c:\\temp
+if has('win16') || has('win32') || has('win64') || has('win95')
+	set directory=c:\\temp
+	set backupdir=c:\\temp
+endif
 
 " Actually disable these altogether - we probably don't need them
 set nobackup
 set nowritebackup
+set noswapfile
 
 " Set the colour scheme
 color slate
@@ -35,8 +38,8 @@ au BufNewFile,BufRead *.tt setfiletype cs
 au BufNewFile,BufRead *.targets setfiletype xml
 
 set nocompatible
-set showmatch
-set matchtime=3
+"set showmatch
+"set matchtime=3
 set smartindent
 set showcmd
 set showmode
