@@ -11,6 +11,13 @@ set nobackup
 set nowritebackup
 set noswapfile
 
+set noshowmatch
+set noerrorbells
+set visualbell
+
+" Treat these as part of the word, not dividers
+set iskeyword=_,$,@,%,#,-
+
 " Set the colour scheme
 color darkblue
 
