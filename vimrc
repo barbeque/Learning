@@ -3,6 +3,7 @@
 if has('win16') || has('win32') || has('win64') || has('win95')
 	set directory=c:\\temp
 	set backupdir=c:\\temp
+	set guifont=Consolas:h11:cANSI	" set gui font for windows
 endif
 
 " Actually disable these altogether - we probably don't need them
@@ -11,10 +12,12 @@ set nowritebackup
 set noswapfile
 
 " Set the colour scheme
-color desert
+color darkblue
 
-" Set the GUI font (for GVIM)
-set guifont=Consolas:h11:cANSI
+" Set mac gui font
+if has('macunix') || has('mac')
+	set guifont=Monaco:h12
+endif
 
 " Activate syntax for everything
 syn on
