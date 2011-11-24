@@ -29,6 +29,7 @@ namespace depth
 		private Texture2D _depthBuffer;
 		private Buffer _vertexBuffer;
 		private InputLayout _inputLayout;
+	    private RasterizerState _rasterizerState;
 
 		private VertexShader _vertexShader;
 		private PixelShader _pixelShader;
@@ -103,6 +104,14 @@ namespace depth
 			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height);
 			_device.Rasterizer.SetViewports(_viewport);
 			_device.OutputMerger.SetTargets(_depthStencilView, _renderTargetView);
+
+		    _rasterizerState = RasterizerState.FromDescription(_device, new RasterizerStateDescription
+		                                                                    {
+                                                                                IsDepthClipEnabled = false,
+                                                                                FillMode = FillMode.Solid,
+                                                                                CullMode = CullMode.None
+		                                                                    });
+		    _device.Rasterizer.State = _rasterizerState;
 
 			_form.UserResized += (sender, e) =>
 									 {
@@ -213,6 +222,7 @@ namespace depth
 		/// <filterpriority>2</filterpriority>
 		public void Dispose()
 		{
+		    TryDisposing(_rasterizerState);
 			TryDisposing(_pixelShader);
 			TryDisposing(_vertexShader);
 			TryDisposing(_device);
