@@ -101,7 +101,7 @@ namespace depth
 
 			InitializeDepthBuffer();
 			InitializeMeshes();
-			InitializeShaders("passthrough.fx");
+			InitializeShaders("passthrough-red.fx");
 
 			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height, 0.0f, 1.0f);
 			_device.Rasterizer.SetViewports(_viewport);
