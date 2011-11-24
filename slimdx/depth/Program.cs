@@ -100,7 +100,7 @@ namespace depth
 			InitializeMeshes();
 			InitializeShaders("passthrough.fx");
 
-		    _viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height);
+			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height);
 			_device.Rasterizer.SetViewports(_viewport);
 			_device.OutputMerger.SetTargets(_depthStencilView, _renderTargetView);
 
@@ -174,8 +174,8 @@ namespace depth
 
 		private void InitializeShaders(string shaderName)
 		{
-		    TryDisposing(_vertexShader);
-		    TryDisposing(_pixelShader);
+			TryDisposing(_vertexShader);
+			TryDisposing(_pixelShader);
 
 			using (var bytecode = ShaderBytecode.CompileFromFile(shaderName, "VShader", "vs_4_0", ShaderFlags.None, EffectFlags.None))
 			{
@@ -199,8 +199,8 @@ namespace depth
 			_device.ClearDepthStencilView(_depthStencilView, DepthStencilClearFlags.Depth, 1.0f, 0);
 			_device.ClearRenderTargetView(_renderTargetView, new Color4(0.5f, 0.5f, 1.0f));
 
-            // Draw once, then flip, then draw again
-            _device.Draw(3, 0);
+			// Draw once, then flip, then draw again
+			_device.Draw(3, 0);
 
 			_swapChain.Present(0, PresentFlags.None);
 		}
