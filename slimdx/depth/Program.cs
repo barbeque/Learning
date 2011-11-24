@@ -98,9 +98,9 @@ namespace depth
 
 			InitializeDepthBuffer();
 			InitializeMeshes();
-			InitializeShaders();
+			InitializeShaders("passthrough.fx");
 
-			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height, 0.0f, 1.0f);
+		    _viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height);
 			_device.Rasterizer.SetViewports(_viewport);
 			_device.OutputMerger.SetTargets(_depthStencilView, _renderTargetView);
 
@@ -172,9 +172,12 @@ namespace depth
 		{
 		}
 
-		private void InitializeShaders()
+		private void InitializeShaders(string shaderName)
 		{
-			using (var bytecode = ShaderBytecode.CompileFromFile("passthrough.fx", "VShader", "vs_4_0", ShaderFlags.None, EffectFlags.None))
+		    TryDisposing(_vertexShader);
+		    TryDisposing(_pixelShader);
+
+			using (var bytecode = ShaderBytecode.CompileFromFile(shaderName, "VShader", "vs_4_0", ShaderFlags.None, EffectFlags.None))
 			{
 				_inputLayout = new InputLayout(_device, bytecode,
 											   new[] {new InputElement("POSITION", 0, Format.R32G32B32_Float, 0, 0)});
@@ -182,7 +185,7 @@ namespace depth
 
 				_vertexShader = new VertexShader(_device, bytecode);
 			}
-			using (var bytecode = ShaderBytecode.CompileFromFile("passthrough.fx", "PShader", "ps_4_0", ShaderFlags.None, EffectFlags.None))
+			using (var bytecode = ShaderBytecode.CompileFromFile(shaderName, "PShader", "ps_4_0", ShaderFlags.None, EffectFlags.None))
 			{
 				_pixelShader = new PixelShader(_device, bytecode);
 			}
@@ -196,7 +199,8 @@ namespace depth
 			_device.ClearDepthStencilView(_depthStencilView, DepthStencilClearFlags.Depth, 1.0f, 0);
 			_device.ClearRenderTargetView(_renderTargetView, new Color4(0.5f, 0.5f, 1.0f));
 
-			_device.Draw(3, 0);
+            // Draw once, then flip, then draw again
+            _device.Draw(3, 0);
 
 			_swapChain.Present(0, PresentFlags.None);
 		}
