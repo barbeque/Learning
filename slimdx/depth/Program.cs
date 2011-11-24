@@ -178,7 +178,7 @@ namespace depth
 		    var closerVertices = new DataStream(12 * 3, true, true);
             closerVertices.Write(new Vector3(0.0f, -0.5f, 0.3f));
             closerVertices.Write(new Vector3(0.5f, 0.5f, 0.3f));
-            closerVertices.Write(new Vector3(-0.5f, 0.5f, 0.0f));
+            closerVertices.Write(new Vector3(-0.5f, 0.5f, 0.8f));
             closerVertices.Position = 0;
 
 		    _closerTriangleBuffer = new Buffer(_device, closerVertices, 12 * 3, ResourceUsage.Default, BindFlags.VertexBuffer,
