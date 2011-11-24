@@ -27,9 +27,11 @@ namespace depth
 		private DepthStencilState _depthStencilState;
 		private DepthStencilView _depthStencilView;
 		private Texture2D _depthBuffer;
-		private Buffer _vertexBuffer;
 		private InputLayout _inputLayout;
 	    private RasterizerState _rasterizerState;
+
+        private Buffer _vertexBuffer;
+	    private Buffer _closerTriangleBuffer;
 
 		private VertexShader _vertexShader;
 		private PixelShader _pixelShader;
@@ -101,7 +103,7 @@ namespace depth
 			InitializeMeshes();
 			InitializeShaders("passthrough.fx");
 
-			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height);
+			_viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height, 0.0f, 1.0f);
 			_device.Rasterizer.SetViewports(_viewport);
 			_device.OutputMerger.SetTargets(_depthStencilView, _renderTargetView);
 
@@ -172,6 +174,15 @@ namespace depth
 
 			_device.InputAssembler.SetPrimitiveTopology(PrimitiveTopology.TriangleList);
 			_device.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, 12, 0));
+
+		    var closerVertices = new DataStream(12 * 3, true, true);
+            closerVertices.Write(new Vector3(0.0f, -0.5f, 0.3f));
+            closerVertices.Write(new Vector3(0.5f, 0.5f, 0.3f));
+            closerVertices.Write(new Vector3(-0.5f, 0.5f, 0.0f));
+            closerVertices.Position = 0;
+
+		    _closerTriangleBuffer = new Buffer(_device, closerVertices, 12 * 3, ResourceUsage.Default, BindFlags.VertexBuffer,
+		                                       CpuAccessFlags.None, ResourceOptionFlags.None);
 		}
 
 		/// <summary>
@@ -209,7 +220,11 @@ namespace depth
 			_device.ClearRenderTargetView(_renderTargetView, new Color4(0.5f, 0.5f, 1.0f));
 
 			// Draw once, then flip, then draw again
+            _device.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_vertexBuffer, 12, 0));
 			_device.Draw(3, 0);
+
+            _device.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(_closerTriangleBuffer, 12, 0));
+            _device.Draw(3, 0);
 
 			_swapChain.Present(0, PresentFlags.None);
 		}
@@ -227,6 +242,7 @@ namespace depth
 			TryDisposing(_vertexShader);
 			TryDisposing(_device);
 			TryDisposing(_vertexBuffer);
+		    TryDisposing(_closerTriangleBuffer);
 			TryDisposing(_renderTargetView);
 			TryDisposing(_depthBuffer);
 			TryDisposing(_depthStencilView);
