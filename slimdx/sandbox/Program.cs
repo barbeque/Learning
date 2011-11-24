@@ -6,6 +6,7 @@ using SlimDX.Direct3D10;
 using SlimDX.DXGI;
 using SlimDX.Windows;
 using Device = SlimDX.Direct3D10.Device;
+using Resource = SlimDX.Direct3D10.Resource;
 
 namespace sandbox
 {
@@ -14,7 +15,6 @@ namespace sandbox
         private RenderForm _form;
         private SwapChain _swapChain;
         private Device _device;
-        private Texture2D _renderTexture;
         private RenderTargetView _renderTargetView;
         private Viewport _viewport;
 
@@ -56,8 +56,8 @@ namespace sandbox
                                       IsWindowed = true,
                                       ModeDescription = new ModeDescription
                                                             {
-                                                                Width = _form.ClientSize.Width,
-                                                                Height = _form.ClientSize.Height,
+                                                                Width = 0,
+                                                                Height = 0,
                                                                 Format = Format.R8G8B8A8_UNorm,
                                                                 RefreshRate = new Rational(60, 1),
                                                                 Scaling = DisplayModeScaling.Unspecified,
@@ -68,7 +68,7 @@ namespace sandbox
                                                                   Count = 1,
                                                                   Quality = 0
                                                               },
-                                      Flags = SwapChainFlags.None,
+                                      Flags = SwapChainFlags.AllowModeSwitch,
                                       SwapEffect = SwapEffect.Discard
                                   };
 
@@ -76,26 +76,10 @@ namespace sandbox
             SlimDX.Direct3D10_1.Device1.CreateWithSwapChain(null, DriverType.Hardware, DeviceCreationFlags.None,
                                                             description, out _device, out _swapChain);
 
-            Texture2DDescription renderTargetTextureDescription = new Texture2DDescription
-                                                                      {
-                                                                          Width = _form.ClientSize.Width,
-                                                                          Height = _form.ClientSize.Height,
-                                                                          Format = description.ModeDescription.Format,
-                                                                          MipLevels = 1,
-                                                                          ArraySize = 1,
-                                                                          SampleDescription =
-                                                                              new SampleDescription(1, 0),
-                                                                          Usage = ResourceUsage.Default,
-                                                                          CpuAccessFlags = CpuAccessFlags.None,
-                                                                          BindFlags =
-                                                                              BindFlags.RenderTarget |
-                                                                              BindFlags.ShaderResource,
-                                                                          OptionFlags = ResourceOptionFlags.Shared
-
-                                                                      };
-
-            _renderTexture = new Texture2D(_device, renderTargetTextureDescription);
-            _renderTargetView = new RenderTargetView(_device, _renderTexture);
+            using (var resource = Resource.FromSwapChain<Texture2D>(_swapChain, 0))
+            {
+                _renderTargetView = new RenderTargetView(_device, resource);
+            }
 
             // TODO {Mike Stedman - Nov 23, 2011} add depth stuff
 
@@ -106,7 +90,7 @@ namespace sandbox
 
         public void RenderFrame()
         {
-            _device.ClearRenderTargetView(_renderTargetView, Color.White);
+            _device.ClearRenderTargetView(_renderTargetView, new Color4(0.5f, 0.5f, 1.0f));
             _swapChain.Present(0, PresentFlags.None);
         }
 
@@ -120,7 +104,6 @@ namespace sandbox
         {
             TryDisposing(_device);
             TryDisposing(_renderTargetView);
-            TryDisposing(_renderTexture);
             TryDisposing(_swapChain);
             TryDisposing(_form);
         }

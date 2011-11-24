@@ -1,0 +1,9 @@
+D:\github\slimdx\sandbox\bin\Debug\sandbox.exe.config
+D:\github\slimdx\sandbox\bin\Debug\sandbox.exe
+D:\github\slimdx\sandbox\bin\Debug\sandbox.pdb
+D:\github\slimdx\sandbox\obj\x86\Debug\ResolveAssemblyReference.cache
+D:\github\slimdx\sandbox\obj\x86\Debug\sandbox.Properties.Resources.resources
+D:\github\slimdx\sandbox\obj\x86\Debug\GenerateResource.read.1.tlog
+D:\github\slimdx\sandbox\obj\x86\Debug\GenerateResource.write.1.tlog
+D:\github\slimdx\sandbox\obj\x86\Debug\sandbox.exe
+D:\github\slimdx\sandbox\obj\x86\Debug\sandbox.pdb
