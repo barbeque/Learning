@@ -99,9 +99,9 @@ namespace sandbox
 
             // TODO {Mike Stedman - Nov 23, 2011} add depth stuff
 
-			_device.OutputMerger.SetTargets(_renderTargetView);
             _viewport = new Viewport(0, 0, _form.ClientSize.Width, _form.ClientSize.Height, 0.0f, 1.0f);
             _device.Rasterizer.SetViewports(_viewport);
+			_device.OutputMerger.SetTargets(_renderTargetView);
         }
 
         public void RenderFrame()
