@@ -252,7 +252,7 @@ namespace a8unorm
             DataStream textureStream = _unormTexture.Map(0, MapMode.WriteDiscard, SlimDX.Direct3D10.MapFlags.None).Data;
             for (int i = 0; i < textureStream.Length; i++)
             {
-                byte toWrite = (i % 10 == 0) ? (byte)0 : (byte)125;
+                byte toWrite = (i % 2 == 0) ? (byte)0 : (byte)125;
                 textureStream.Write(toWrite);
             }
             textureStream.Position = 0;
