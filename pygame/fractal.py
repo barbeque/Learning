@@ -1,18 +1,21 @@
-import pygame, math
+import pygame, math, random
 
 def draw(screen):
-	drawBranch(screen, 10, 320, 240, 40, 0)
+	theta = -math.pi / 2
+	drawBranch(screen, 10, 320, 240, 40, theta)
 	
 def drawBranch(screen, depth, originX, originY, length, theta):
 	destinationX = originX + length * math.cos(theta)
 	destinationY = originY + length * math.sin(theta)
-	color = pygame.Color('red')
-	color.r = (int)((float(depth) / 10) * 255);
+	color = pygame.Color('green')
+	color.g = (int)((float(depth) / 10) * 255);
 	pygame.draw.line(screen, color, (originX, originY), (destinationX, destinationY))
 	
+	thetaOffset = 3.141592 / 4.0;#2.0 * (float(depth) / 10) + 0.1;
+	
 	if depth > 1:
-		drawBranch(screen, depth - 1, destinationX, destinationY, length * 0.95, theta + 1.2)
-		drawBranch(screen, depth - 1, destinationX, destinationY, length * 0.95, theta - 1.2)
+		drawBranch(screen, depth - 1, destinationX, destinationY, length * 0.95, theta + thetaOffset)
+		drawBranch(screen, depth - 1, destinationX, destinationY, length * 0.95, theta - thetaOffset)
 		
 def main():
 	screen = pygame.display.set_mode((640, 480))
