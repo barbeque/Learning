@@ -2,7 +2,7 @@ import pygame, math, random
 
 def draw(screen):
 	theta = -math.pi / 2
-	drawBranch(screen, 10, 320, 240, 40, theta)
+	drawBranch(screen, 10, 320, 320, 40, theta)
 	
 def drawBranch(screen, depth, originX, originY, length, theta):
 	destinationX = originX + length * math.cos(theta)
