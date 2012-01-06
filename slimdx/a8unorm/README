@@ -1,0 +1,1 @@
+This tests the A8_UNORM texture format in small sizes, which I think may have an alignment issue
