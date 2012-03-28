@@ -8,9 +8,9 @@ def isAnagram(bigWord, smallWord):
 	bigWordStart = 0
 	for i in range(0, len(sortedSmallWord)):
 		for j in range(bigWordStart, len(sortedBigWord)):
-			if ord(sortedBigWord[j]) > ord(sortedSmallWord[i]):
+			if sortedBigWord[j] > sortedSmallWord[i]:
 				return False
-			elif ord(sortedBigWord[j]) == ord(sortedSmallWord[i]):
+			elif sortedBigWord[j] == sortedSmallWord[i]:
 				bigWordStart = j + 1 # prevents doubles
 				break
 	return True
