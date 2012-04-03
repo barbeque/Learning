@@ -1,0 +1,46 @@
+<head>
+	<title>div tables</title>
+	<style type="text/css">
+		.demotable .row div {
+			width: 29%;
+			display: inline-block;
+			border-right: 1px dashed black;
+		}
+		
+		.demotable .row {
+			border-bottom: 1px dashed black;
+		}
+		
+		.demotable .row:first-child div {
+			font-weight:bold;
+		}
+		
+		.demotable .row .iconColumn {
+			width: 10%;
+		}
+		
+		.demotable .row:last-child {
+			border-bottom: 0px black;
+		}
+		
+		.demotable .row div:last-child {
+			border-right: 0px black;
+		}
+	</style>
+</head>
+<body>
+	<div class="demotable">
+		<div class="row">
+			<div class="iconColumn">Small column</div>
+			<div>Normal column A</div>
+			<div>Normal column B</div>
+			<div>Normal column C</div>
+		</div>
+		<div class="row">
+			<div class="iconColumn">A</div>
+			<div>First row A</div>
+			<div>First row B</div>
+			<div>First row C</div>
+		</div>
+	</div>
+</body>
