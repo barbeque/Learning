@@ -1,0 +1,36 @@
+<head>
+	<title>div tables</title>
+	<style type="text/css">
+		.demotable .row div {
+			width: 33%;
+			display: inline-block;
+			border-right: 1px dashed black;
+		}
+		
+		.demotable .row {
+			border-bottom: 1px dashed black;
+		}
+		
+		.demotable .row:last-child {
+			border-bottom: 0px black;
+		}
+		
+		.demotable .row div:last-child {
+			border-right: 0px black;
+		}
+	</style>
+</head>
+<body>
+	<div class="demotable">
+		<div class="row">
+			<div>Column header A</div>
+			<div>Column header B</div>
+			<div>Column header C</div>
+		</div>
+		<div class="row">
+			<div>First row A</div>
+			<div>First row B</div>
+			<div>First row C</div>
+		</div>
+	</div>
+</body>
