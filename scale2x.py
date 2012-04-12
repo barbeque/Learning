@@ -46,7 +46,7 @@ def scaleImageInFile(path):
 			
 	# write image back to file
 	filename, extension = os.path.splitext(path)
-	newPath = filename + '.scale2x' + extension
+	newPath = filename + '.scaled2x' + extension
 	pygame.image.save(targetImage, newPath)
 			
 	# print happy message
