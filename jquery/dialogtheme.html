@@ -15,13 +15,19 @@
 					"Cancel": function() {}
 				}
 			});
+
+			// If only there were a way to do this automatically in the css class definition
+			$(".ui-dialog-titlebar")
+				.removeClass("ui-corner-all")
+				.addClass("ui-corner-tr")
+				.addClass("ui-corner-tl");
 		});
 	});
 	</script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/cupertino/jquery-ui.css" type="text/css" media="all"/>
 	<style>
 		.bbqDialog {
-			border: 2px dashed blue;
+			border: 1px solid black;
 			background: white;
 			padding: 0px;
 		}
@@ -32,7 +38,7 @@
 			padding: 0px;
 			font-size: 36px;
 			width: 100%;
-			/*background-color: purple;*/
+			background-color: beige;
 		}
 		.bbqDialog .ui-dialog-content {
 			padding: 1px;
