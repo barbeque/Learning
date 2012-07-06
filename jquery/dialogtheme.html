@@ -7,16 +7,22 @@
 		$("#openDialogButton").click(function() {
 			$("#dialog").dialog({
 				modal: true,
-				title: "Dialog Title"
+				title: "Dialog Title",
+				dialogClass: "bbqDialog"
 			});
 		});
 	});
 	</script>
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/cupertino/jquery-ui.css" type="text/css" media="all"/>
+	<style>
+		.bbqDialog {
+			border: 2px solid blue;
+		}
+	</style>
 </head>
 <body>
 	<button type="button" id="openDialogButton">Hello World</button>
-	<div style="display: none" id="dialog" class="bbqDialog">
+	<div style="display: none" id="dialog">
 		<p>Dialog contents</p>
 	</div>
 </body>
