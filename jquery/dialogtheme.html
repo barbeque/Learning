@@ -1,5 +1,6 @@
 <html>
 <head>
+	<title>Cherry bomb a toilet today.</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js"></script>
 	<script type="text/javascript">
@@ -8,7 +9,11 @@
 			$("#dialog").dialog({
 				modal: true,
 				title: "Dialog Title",
-				dialogClass: "bbqDialog"
+				dialogClass: "bbqDialog",
+				buttons: {
+					"OK": function() {},
+					"Cancel": function() {}
+				}
 			});
 		});
 	});
@@ -16,8 +21,9 @@
 	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.21/themes/cupertino/jquery-ui.css" type="text/css" media="all"/>
 	<style>
 		.bbqDialog {
-			border: 2px solid blue;
+			border: 2px dashed blue;
 			background: white;
+			padding: 0px;
 		}
 		.bbqDialog .ui-dialog-titlebar {
 			background: none;
@@ -25,11 +31,20 @@
 			margin: 0px;
 			padding: 0px;
 			font-size: 36px;
+			width: 100%;
+			/*background-color: purple;*/
 		}
 		.bbqDialog .ui-dialog-content {
-			padding: 0px;
+			padding: 1px;
 			padding-left: 8px;
 			line-height: 1.0;
+			border-top: 1px solid black;
+			border-bottom: 1px solid black;
+		}
+		.bbqDialog .ui-dialog-buttonpane {
+			background: white;
+			border: 0px;
+			padding: 0px;
 		}
 	</style>
 </head>
