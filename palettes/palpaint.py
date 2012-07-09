@@ -34,18 +34,37 @@ def cyclePalette(palette, amount):
 		newPalette[x] = palette[(x + amount) % len(palette)]
 	return newPalette
 
-def drawPalettePicker(surface, boxSize, boxGap):
+def drawSelectionBox(surface, x, y, boxSize):
+	color = pygame.Color('purple')
+	width = 2
+
+	# top: x, y, to (x + boxSize, y + w)
+	pygame.draw.rect(surface, color, Rect(x, y, boxSize, width))
+	# bottom: x, y + boxSize to (x + boxSize, y + boxSize - w)
+	pygame.draw.rect(surface, color, Rect(x, y + boxSize - width, boxSize, width))
+	# left: x, y to x + width, y + boxSize
+	pygame.draw.rect(surface, color, Rect(x, y, width, boxSize))
+	# right: x + boxSize, y to x + boxSize - w, y + boxSize
+	pygame.draw.rect(surface, color, Rect(x + boxSize - width, y, width, boxSize))
+
+def drawPalettePicker(surface, boxSize, boxGap, selectedIndex):
 	x = 0
 	y = 0
+	index = 0
 
 	for c in palette:
 		pygame.draw.rect(surface, c, Rect(x, y, boxSize, boxSize))
+
+		if index == selectedIndex:
+			# draw selection box
+			drawSelectionBox(surface, x, y, boxSize)
 
 		if x + boxSize + boxGap > surface.get_width():
 			x = 0
 			y += boxSize + boxGap
 		else:
 			x += boxSize + boxGap
+		index = index + 1
 
 def drawBuffer(surface, palette, buffer, boxSize, boxGap):
 	x = 0
@@ -106,7 +125,7 @@ while isRunning:
 				spriteBuffer[cursorY][cursorX] = paintIndex
 
 	if paletteOpen:
-		drawPalettePicker(surface, boxSize, boxGap)
+		drawPalettePicker(surface, boxSize, boxGap, paintIndex)
 	else:
 		drawBuffer(surface, palette, spriteBuffer, boxSize, boxGap)
 
