@@ -71,12 +71,15 @@ paletteOpen = False
 boxSize = 16
 boxGap = 1
 
+# the colour that the mouse is painting with
+paintIndex = 16
+
 width, height = surface.get_size()
 
 spriteBuffer = []
 for r in range(height / (boxSize + boxGap)):
 	row = []
-	for c in range(width / (boxSize * boxGap)):
+	for c in range(width / (boxSize + boxGap)):
 		row.append(0) # todo random pixels
 	spriteBuffer.append(row)
 
@@ -94,10 +97,13 @@ while isRunning:
 			else:
 				palette = cyclePalette(palette, 1)
 		elif event.type == MOUSEBUTTONDOWN:
+			mouseX, mouseY = event.pos
+			cursorX = mouseX / (boxSize + boxGap)
+			cursorY = mouseY / (boxSize + boxGap)
 			if paletteOpen:
 				print 'Palette selection attempted TODO'
 			else:
-				print 'Buffer selection attempted TODO'
+				spriteBuffer[cursorY][cursorX] = paintIndex
 
 	if paletteOpen:
 		drawPalettePicker(surface, boxSize, boxGap)
