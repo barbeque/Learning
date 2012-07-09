@@ -93,6 +93,11 @@ while isRunning:
 				paletteOpen = not paletteOpen
 			else:
 				palette = cyclePalette(palette, 1)
+		elif event.type == MOUSEBUTTONDOWN:
+			if paletteOpen:
+				print 'Palette selection attempted TODO'
+			else:
+				print 'Buffer selection attempted TODO'
 
 	if paletteOpen:
 		drawPalettePicker(surface, boxSize, boxGap)
