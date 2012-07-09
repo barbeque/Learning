@@ -72,8 +72,6 @@ boxSize = 16
 boxGap = 1
 
 width, height = surface.get_size()
-print width, height
-print (width / (boxSize + boxGap)), (height / (boxSize + boxGap))
 
 spriteBuffer = []
 for r in range(height / (boxSize + boxGap)):
@@ -83,12 +81,16 @@ for r in range(height / (boxSize + boxGap)):
 	spriteBuffer.append(row)
 
 while isRunning:
+	pygame.draw.rect(surface, pygame.Color('black'), Rect(0, 0, width, height))
+
 	for event in pygame.event.get():
 		if event.type == QUIT:
 			isRunning = False
 		elif event.type == KEYDOWN:
 			if event.key == pygame.K_ESCAPE:
 				isRunning = False
+			elif event.key == pygame.K_p:
+				paletteOpen = not paletteOpen
 			else:
 				palette = cyclePalette(palette, 1)
 
