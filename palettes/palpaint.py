@@ -59,7 +59,7 @@ def drawPalettePicker(surface, boxSize, boxGap, selectedIndex):
 			# draw selection box
 			drawSelectionBox(surface, x, y, boxSize)
 
-		if x + boxSize + boxGap > surface.get_width():
+		if x + (boxSize + boxGap)*2 >= surface.get_width(): # x2 to make sure the next rect is COMPLETELY CONTAINED within the screen
 			x = 0
 			y += boxSize + boxGap
 		else:
@@ -120,8 +120,10 @@ while isRunning:
 			cursorX = mouseX / (boxSize + boxGap)
 			cursorY = mouseY / (boxSize + boxGap)
 			if paletteOpen:
-				print 'Palette selection attempted TODO'
+				tilesPerRow = (width / (boxSize + boxGap))
+				paintIndex = cursorY * (width / (boxSize + boxGap)) + cursorX
 			else:
+				# TODO bounds check
 				spriteBuffer[cursorY][cursorX] = paintIndex
 
 	if paletteOpen:
