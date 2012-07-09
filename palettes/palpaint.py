@@ -52,13 +52,13 @@ def drawBuffer(surface, palette, buffer, boxSize, boxGap):
 	y = 0
 	for row in buffer:
 		for value in row:
+			# dereference palette index to real colour
 			pixelColor = palette[value]
+			# blit that pixel
 			pygame.draw.rect(surface, pixelColor, Rect(x, y, boxSize, boxSize))
-			if x + boxSize + boxGap > surface.get_width():
-				x = 0
-				y += boxSize + boxGap
-			else:
-				y += boxSize + boxGap
+			x += boxSize + boxGap
+		x = 0
+		y += boxSize + boxGap
 
 palette = makePalette()
 
@@ -67,16 +67,19 @@ surface = pygame.display.set_mode((512, 384))
 pygame.display.set_caption('palpaint')
 
 isRunning = True
+paletteOpen = False
 boxSize = 16
 boxGap = 1
 
 width, height = surface.get_size()
+print width, height
+print (width / (boxSize + boxGap)), (height / (boxSize + boxGap))
 
 spriteBuffer = []
 for r in range(height / (boxSize + boxGap)):
 	row = []
 	for c in range(width / (boxSize * boxGap)):
-		row.append(0)
+		row.append(0) # todo random pixels
 	spriteBuffer.append(row)
 
 while isRunning:
@@ -89,6 +92,9 @@ while isRunning:
 			else:
 				palette = cyclePalette(palette, 1)
 
-	drawPalettePicker(surface, boxSize, boxGap)
+	if paletteOpen:
+		drawPalettePicker(surface, boxSize, boxGap)
+	else:
+		drawBuffer(surface, palette, spriteBuffer, boxSize, boxGap)
 
 	pygame.display.update()
