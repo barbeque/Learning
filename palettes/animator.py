@@ -45,10 +45,10 @@ pygame.display.set_caption('palettes')
 
 # generate buffer
 buffer = []
-for row in range(0, 150):
+for row in range(0, 64):
 	rowBuffer = []
-	for column in range(0, 150):
-		if row % 2 == 0:
+	for column in range(0, 64):
+		if (row / 4) % 2 == 0:
 			rowBuffer.append(column)
 		else:
 			rowBuffer.append(column + 4)
@@ -62,9 +62,9 @@ while True:
 		elif event.type == KEYDOWN:
 			palette = cyclePalette(palette, 1)
 
-	boxSize = 16
+	boxSize = 2
 	boxGap = 1
 
-	drawBuffer(surface, palette, buffer, 8, 2)
+	drawBuffer(surface, palette, buffer, boxSize, boxGap)
 
 	pygame.display.update()
