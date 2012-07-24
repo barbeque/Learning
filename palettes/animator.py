@@ -59,8 +59,10 @@ while True:
 		if event.type == QUIT:
 			pygame.quit()
 			sys.exit()
-		elif event.type == KEYDOWN:
-			palette = cyclePalette(palette, 1)
+
+	keysDown = pygame.key.get_pressed()
+	if keysDown[pygame.K_SPACE]:
+		palette = cyclePalette(palette, 1)
 
 	boxSize = 2
 	boxGap = 1
