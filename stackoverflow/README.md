@@ -1,0 +1,1 @@
+This folder contains mostly snippets of code that I wrote to double-check one of my StackOverflow answers. If you can use it, knock yourself out.
