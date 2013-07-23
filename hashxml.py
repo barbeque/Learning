@@ -13,17 +13,17 @@ def dictToXml(root):
 	for key in root.keys():
 		if isinstance(root[key], dict):
 			# recurse
-			xml = '%s<%s>\n%s</%s>\n' % (xml, key, dictToXml(root[key]), key)
+			xml += '<%s>\n%s</%s>\n' % (key, dictToXml(root[key]), key)
 		elif isinstance(root[key], list):
-			xml = '%s<%s>' % (xml, key)
+			xml += '<%s>\n' % key
 			for item in root[key]:
-				xml = '%s<%s>\n' % (xml, depluralize(key))
-				xml = '%s%s' % (xml, dictToXml(item))
-				xml = '%s</%s>\n' % (xml, depluralize(key))
-			xml = '%s</%s>' % (xml, key)
+				xml += '<%s>\n' % depluralize(key)
+				xml += '%s' % dictToXml(item)
+				xml += '</%s>\n' % depluralize(key)
+			xml += '</%s>\n' % key
 		else:
 			value = root[key]
-			xml = '%s<%s>%s</%s>\n' % (xml, key, value, key)
+			xml += '<%s>%s</%s>\n' % (key, value, key)
 	return xml
 
 def depluralize(name):
