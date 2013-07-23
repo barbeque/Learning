@@ -4,7 +4,8 @@ collection = {
 		{ "name": "porsche 911", "year": 1993, "mileage": 162040 },
 	],
 	"games": [
-		{ "name": "super mario bros", "platform": "NES" }
+		{ "name": "super mario bros", "platform": "NES" },
+		{ "name": "sonic the hedgehog", "platform": "Sega Genesis" }
 	]
 }
 
