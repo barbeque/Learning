@@ -8,6 +8,7 @@ collection = {
 	]
 }
 
+# crappy recursive hashtable to xml producer
 def dictToXml(root):
 	xml = ''
 	for key in root.keys():
