@@ -1,6 +1,6 @@
 #!/bin/bash
 
-basedomain="chart.com"
+basedomain="outpost.com"
 hits=0
 
 for i in {a..z}
