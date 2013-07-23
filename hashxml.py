@@ -17,11 +17,16 @@ def dictToXml(root):
 		elif isinstance(root[key], list):
 			xml = '%s<%s>' % (xml, key)
 			for item in root[key]:
+				xml = '%s<%s>\n' % (xml, depluralize(key))
 				xml = '%s%s' % (xml, dictToXml(item))
+				xml = '%s</%s>\n' % (xml, depluralize(key))
 			xml = '%s</%s>' % (xml, key)
 		else:
 			value = root[key]
 			xml = '%s<%s>%s</%s>\n' % (xml, key, value, key)
 	return xml
+
+def depluralize(name):
+	return name.rstrip('s') # TODO: low-rent
 
 print dictToXml(collection)
